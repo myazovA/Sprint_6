@@ -1,10 +1,7 @@
-from selenium import webdriver
 from pages.main_page import MainPage
 import pytest
 
 class TestMainPage:
-
-    driver = webdriver.Firefox()
 
     @pytest.mark.parametrize('num, answer',
                              [[0, 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'],
@@ -15,8 +12,8 @@ class TestMainPage:
                               [5, 'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.'],
                               [6, 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'],
                               [7, 'Да, обязательно. Всем самокатов! И Москве, и Московской области.']])
-    def test_faq_click_answer_opens(self, num, answer):
-        main_page = MainPage(self.driver)
+    def test_faq_click_answer_opens(self, driver, num, answer):
+        main_page = MainPage(driver)
         main_page.open_main_page()
         main_page.go_to_faq_element(num)
         main_page.wait_for_faq_element(num)

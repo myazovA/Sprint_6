@@ -1,97 +1,107 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions
+import allure
+from pages.base_page import BasePage
 
-class OrderPage:
+class OrderPage(BasePage):
 
-    NAME_FIELD = By.XPATH, './/div/input[@placeholder="* Имя"]'
-    SURNAME_FIELD = By.XPATH, './/div/input[@placeholder="* Фамилия"]'
-    ADRESS_FIELD = By.XPATH, './/div/input[@placeholder="* Адрес: куда привезти заказ"]'
-    METRO_FIELD = By.XPATH, './/div/input[@placeholder="* Станция метро"]'
-    METRO_SELECT = By.XPATH, './/ul/li[@data-value="1"]/button'
-    PHONE_FIELD = By.XPATH, './/div/input[@placeholder="* Телефон: на него позвонит курьер"]'
-    CONTINUE_BUTTON = By.XPATH, './/div/button[@class="Button_Button__ra12g Button_Middle__1CSJM"]'
-    WHEN_FIELD = By.XPATH, './/div/input[@placeholder="* Когда привезти самокат"]'
-    WHEN_FIELD_SELECT = By.XPATH, './/div[contains(@class,"react-datepicker__day--today")]'
-    RENT_PERIOD_FIELD = By.XPATH, './/div[@class="Dropdown-placeholder"]'
-    RENT_PERIOD_LIST = By.XPATH, './/div[contains(text(), "сутки")]'
-    BLACK_COLOR_CHECKBOX = By.XPATH, '//*[@id="black"]'
-    COMMENT_FIELD = By.XPATH, './/div/input[@placeholder="Комментарий для курьера"]'
-    ORDER_BUTTON = By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"]'
-    SAMOCAT_LOGO = By.XPATH, './/img[@src="/assets/scooter.svg"]'
-    YANDEX_LOGO = By.XPATH, './/img[@src="/assets/ya.svg"]'
-    ACCEPT_BUTTON = By.XPATH, './/button[contains(text(), "Да")]'
-    SUCCESS_MESSAGE = By.XPATH, './/div[contains(text(), "Заказ оформлен")]'
-    CHECK_STATUS_BUTTON = By.XPATH, './/button[contains(text(), "Посмотреть статус")]'
-    DZEN_YANDEX_LOGO = By.XPATH, './/img[@src="https://avatars.mds.yandex.net/get-direct-picture/117537/Q6ulef2SQr_K6plpIwCn5A/orig"]'
+    NAME_FIELD = (By.XPATH, './/div/input[@placeholder="* Имя"]')
+    SURNAME_FIELD = (By.XPATH, './/div/input[@placeholder="* Фамилия"]')
+    ADRESS_FIELD = (By.XPATH, './/div/input[@placeholder="* Адрес: куда привезти заказ"]')
+    METRO_FIELD = (By.XPATH, './/div/input[@placeholder="* Станция метро"]')
+    METRO_SELECT = (By.XPATH, './/ul/li[@data-value="1"]/button')
+    PHONE_FIELD = (By.XPATH, './/div/input[@placeholder="* Телефон: на него позвонит курьер"]')
+    CONTINUE_BUTTON = (By.XPATH, './/div/button[@class="Button_Button__ra12g Button_Middle__1CSJM"]')
+    WHEN_FIELD = (By.XPATH, './/div/input[@placeholder="* Когда привезти самокат"]')
+    WHEN_FIELD_SELECT = (By.XPATH, './/div[contains(@class,"react-datepicker__day--today")]')
+    RENT_PERIOD_FIELD = (By.XPATH, './/div[@class="Dropdown-placeholder"]')
+    RENT_PERIOD_LIST = (By.XPATH, './/div[contains(text(), "сутки")]')
+    BLACK_COLOR_CHECKBOX = (By.XPATH, '//*[@id="black"]')
+    COMMENT_FIELD = (By.XPATH, './/div/input[@placeholder="Комментарий для курьера"]')
+    ORDER_BUTTON = (By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"]')
+    SAMOCAT_LOGO = (By.XPATH, './/img[@src="/assets/scooter.svg"]')
+    YANDEX_LOGO = (By.XPATH, './/img[@src="/assets/ya.svg"]')
+    ACCEPT_BUTTON = (By.XPATH, './/button[contains(text(), "Да")]')
+    SUCCESS_MESSAGE = (By.XPATH, './/div[contains(text(), "Заказ оформлен")]')
+    CHECK_STATUS_BUTTON = (By.XPATH, './/button[contains(text(), "Посмотреть статус")]')
+    DZEN_YANDEX_LOGO = (By.XPATH, './/img[@src="https://avatars.mds.yandex.net/get-direct-picture/117537/Q6ulef2SQr_K6plpIwCn5A/orig"]')
 
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
 
+    @allure.step('Ввести значение поля Имя')
     def set_name(self, name):
-        self.driver.find_element(*self.NAME_FIELD).send_keys(name)
+        self.enter_text(self.NAME_FIELD, name)
 
+    @allure.step('Ввести значение поля Фамилия')
     def set_surname(self, surname):
-        self.driver.find_element(*self.SURNAME_FIELD).send_keys(surname)
+        self.enter_text(self.SURNAME_FIELD, surname)
 
+    @allure.step('Ввести значение поля Адрес')
     def set_adress(self, adress):
-        self.driver.find_element(*self.ADRESS_FIELD).send_keys(adress)
+        self.enter_text(self.ADRESS_FIELD, adress)
 
+    @allure.step('Выбрать значение поля Метро')
     def choose_on_metro(self):
-        self.driver.find_element(*self.METRO_FIELD).click()
-        self.driver.find_element(*self.METRO_SELECT).click()
+        self.click_element(self.METRO_FIELD)
+        self.click_element(self.METRO_SELECT)
 
+    @allure.step('Ввести значение поля Телефон')
     def set_phone(self, phone):
-        self.driver.find_element(*self.PHONE_FIELD).send_keys(phone)
+        self.enter_text(self.PHONE_FIELD, phone)
 
+    @allure.step('Нажать кнопку Далее')
     def click_continue_button(self):
-        self.driver.find_element(*self.CONTINUE_BUTTON).click()
+        self.click_element(self.CONTINUE_BUTTON)
 
+    @allure.step('Ввести значение поля Когда привезти')
     def set_when(self):
-        self.driver.find_element(*self.WHEN_FIELD).click()
-        self.driver.find_element(*self.WHEN_FIELD_SELECT).click()
+        self.click_element(self.WHEN_FIELD)
+        self.click_element(self.WHEN_FIELD_SELECT)
 
-
+    @allure.step('Ввести значение поля Период аренды')
     def set_rent_period(self):
-        self.driver.find_element(*self.RENT_PERIOD_FIELD).click()
-        self.driver.find_element(*self.RENT_PERIOD_LIST).click()
+        self.click_element(self.RENT_PERIOD_FIELD)
+        self.click_element(self.RENT_PERIOD_LIST)
 
+    @allure.step('Ввести значение поля Цвет')
     def set_color(self):
-        self.driver.find_element(*self.BLACK_COLOR_CHECKBOX).click()
+        self.click_element(self.BLACK_COLOR_CHECKBOX)
 
+    @allure.step('Ввести значение поля Комментарий')
     def set_comment(self, comment):
-        self.driver.find_element(*self.COMMENT_FIELD).send_keys(comment)
+        self.enter_text(self.COMMENT_FIELD, comment)
 
+    @allure.step('Нажать кнопку Заказть')
     def click_order_button(self):
-        self.driver.find_element(*self.ORDER_BUTTON).click()
+        self.click_element(self.ORDER_BUTTON)
 
+    @allure.step('Нажать кнопку подтверждения заказа')
     def click_accept_order(self):
-        self.driver.find_element(*self.ACCEPT_BUTTON).click()
+        self.click_element(self.ACCEPT_BUTTON)
 
+    @allure.step('Проверить сообщение об успешном заказе')
     def check_success_message(self):
-        return self.driver.find_element(*self.SUCCESS_MESSAGE).text
+        return self.find_element(self.SUCCESS_MESSAGE).text
 
+    @allure.step('Нажать кнопку Посмотреть статус')
     def click_go_to_status_window(self):
-        self.driver.find_element(*self.CHECK_STATUS_BUTTON).click()
+        self.click_element(self.CHECK_STATUS_BUTTON)
 
+    @allure.step('Нажать на лого Самоката')
     def click_samocat_logo(self):
-        self.driver.find_element(*self.SAMOCAT_LOGO).click()
+        self.click_element(self.SAMOCAT_LOGO)
 
+    @allure.step('Нажать на лого Яндекса')
     def click_yandex_logo(self):
-        self.driver.find_element(*self.YANDEX_LOGO).click()
+        self.click_element(self.YANDEX_LOGO)
 
+    @allure.step('Перейти на вкладку с Дзеном')
     def switch_to_dzen_tab(self):
-        windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[1])
+        self.switch_tab(1)
 
-    def switch_to_order_tab(self):
-        windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[0])
-
-    def current_url(self):
-        return self.driver.current_url
-
+    @allure.step('Подождать загрузку лого Яндекса на страницу Дзена')
     def wait_yandex_logo(self):
-        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located((self.DZEN_YANDEX_LOGO)))
+        self.wait_for_element_visible(self.DZEN_YANDEX_LOGO)
 
 
