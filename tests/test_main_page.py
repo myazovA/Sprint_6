@@ -1,3 +1,4 @@
+import allure
 from pages.main_page import MainPage
 import pytest
 
@@ -12,6 +13,7 @@ class TestMainPage:
                               [5, 'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.'],
                               [6, 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'],
                               [7, 'Да, обязательно. Всем самокатов! И Москве, и Московской области.']])
+    @allure.title('Проверка открытия вопроса FAQ номер {num}')
     def test_faq_click_answer_opens(self, driver, num, answer):
         main_page = MainPage(driver)
         main_page.open_main_page()

@@ -18,12 +18,10 @@ class OrderPage(BasePage):
     BLACK_COLOR_CHECKBOX = (By.XPATH, '//*[@id="black"]')
     COMMENT_FIELD = (By.XPATH, './/div/input[@placeholder="Комментарий для курьера"]')
     ORDER_BUTTON = (By.XPATH, './/button[@class="Button_Button__ra12g Button_Middle__1CSJM"]')
-    SAMOCAT_LOGO = (By.XPATH, './/img[@src="/assets/scooter.svg"]')
-    YANDEX_LOGO = (By.XPATH, './/img[@src="/assets/ya.svg"]')
     ACCEPT_BUTTON = (By.XPATH, './/button[contains(text(), "Да")]')
     SUCCESS_MESSAGE = (By.XPATH, './/div[contains(text(), "Заказ оформлен")]')
     CHECK_STATUS_BUTTON = (By.XPATH, './/button[contains(text(), "Посмотреть статус")]')
-    DZEN_YANDEX_LOGO = (By.XPATH, './/img[@src="https://avatars.mds.yandex.net/get-direct-picture/117537/Q6ulef2SQr_K6plpIwCn5A/orig"]')
+
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -88,20 +86,6 @@ class OrderPage(BasePage):
     def click_go_to_status_window(self):
         self.click_element(self.CHECK_STATUS_BUTTON)
 
-    @allure.step('Нажать на лого Самоката')
-    def click_samocat_logo(self):
-        self.click_element(self.SAMOCAT_LOGO)
 
-    @allure.step('Нажать на лого Яндекса')
-    def click_yandex_logo(self):
-        self.click_element(self.YANDEX_LOGO)
-
-    @allure.step('Перейти на вкладку с Дзеном')
-    def switch_to_dzen_tab(self):
-        self.switch_tab(1)
-
-    @allure.step('Подождать загрузку лого Яндекса на страницу Дзена')
-    def wait_yandex_logo(self):
-        self.wait_for_element_visible(self.DZEN_YANDEX_LOGO)
 
 
